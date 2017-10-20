@@ -6,8 +6,14 @@
         {{showName.userName}}
       </div>
     </div>
-    <button  v-if="voted" class="voted-button" @click="undo">已投</button>
-    <button v-else @click="vote" >投票</button>
+    <div class="action">
+      <div v-if="voted">
+        <button  class="voted-button" @click="undo">已投</button>
+      </div>
+      <div v-else>
+        <button @click="vote" >投票</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,16 +34,16 @@
     },
     methods:{
       vote:function(){
-        const nameVoted = this.eachShowNames.filter(t => t.userName === this.currentUser)
-        if(this.currentUser && !nameVoted.length ){
+        if(this.voted || !this.currentUser) return
           let vote = {
             userName:this.currentUser,
             menuId:this.menu.id
           }
           this.$store.dispatch({type:'vote',vote})
-        }
+
       },
       undo:function(){
+        alert('我饿了')
         const vote = this.eachShowNames.find(t => t.userName === this.currentUser)
         this.$store.dispatch({type:'undo',voteId:vote.id})
       }

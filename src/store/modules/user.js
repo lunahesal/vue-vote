@@ -28,7 +28,7 @@ const mutations = {
     state.isVoted=true
   },
   undo(state,voteId){
-    state.all= state.all.filter(t=>t.id!==voteId)
+    state.all= state.all.filter(t=>t.id !== voteId)
   }
 }
 const actions ={
