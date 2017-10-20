@@ -1,19 +1,11 @@
 <template>
   <div class='svg-chart'>
     <div>
-      <div class="menu-perc">
-        <div class="">
-
-        </div>
+      <div class="menu-card">
         <div class="menu-name">
-          {{option.name}}:
+          {{option.name}}
         </div>
-        <div class="percent">
-          <div :style="{width:`${percent*100 + '%'}`}">
-            <h3>{{ percent*100 + '%' }}</h3>
-
-          </div>
-        </div>
+        <h3>{{ percent + '%' }}</h3>
         <div class="pie-yum">
           <svg width="50" height="50" viewBox="0 0 32 32">
             <circle id="background"
@@ -38,10 +30,11 @@
         return this.$store.state.user.all.length
       },
       percent: function () {
-        return (this.option.voteCount/this.totalVotes).toFixed(2)
+
+        return Math.round(this.option.voteCount/this.totalVotes*100)
       },
       percentStr: function () {
-        return this.percent*100 + ' 100'
+        return this.percent + ' 100'
       }
     },
    }
@@ -49,30 +42,27 @@
 </script>
 
 <style scoped>
-  .menu-perc{
+  .menu-card{
     display: flex;
+    flex-direction: column;
     padding: 5px;
     box-sizing: border-box;
     align-items: center;
+    margin-top: 20px;
   }
-  .percent{
-    width: 260px;
-    line-height: 24px;
-    margin-left: 10px;
-    margin-right: 10px
-  }
-  .percent>div{
-    background-color: lightblue;
+  .menu-name{
+    font-size: 20px;
   }
   h3{
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: normal;
   }
   svg {
     transform: rotate(-90deg);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
   }
 </style>
